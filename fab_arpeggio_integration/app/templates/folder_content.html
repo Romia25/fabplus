@@ -1,0 +1,70 @@
+{% extends "appbuilder/baselayout.html" %}
+
+{% block content %}
+{#
+    <ul>
+        {% for file in files %}
+        <li>
+            <!-- <a href="{{ file }}"> -->
+                {{ file.name }}
+            <!-- </a> -->
+        </li>
+        {% endfor %}
+    </ul>
+     
+#}
+
+    <table>
+        <thead>
+            <th>
+                Name
+            </th>
+            <th>
+                Last Modified
+            </th>
+            <th>
+                Click on the button to charge
+            </th>
+        </thead>
+        <tbody>
+            <form  method="POST"></form>
+            {% for file in files %}
+            <tr>
+                <td><input type="checkbox" name="key" value="{{ file['filename'] }}"></td>
+                <td>
+                    {{ file['filename'] }}
+                </td>
+                <td>
+                    {{ file['file_last_modified'] }}
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('ListDirectory.parse_and_save') }}" enctype="multipart/form-data">
+                        <input type="hidden" name="file_parsing" value="{{ file['filename'] }}" />
+                        <button type="submit">Charge File</button>
+                    </form>
+
+                   {# <input type="file", value="Charge File"
+                    name="file_to_parse">#} 
+    
+               
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </form>
+        </tbody>
+    </table>
+
+
+
+<style>
+    table {width: 100%;
+
+    }
+    td {word-wrap: break-word;
+
+    }
+</style>
+
+
+{% endblock %}
